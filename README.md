@@ -1,17 +1,17 @@
 # TodoList-Server
 
-<!-- 
+
 # ✨목차
 
-1. [소개](#NodejsToyProject)
+1. [소개](#TodoList-Server)
 2. [제작기간 및 참여인원](#제작기간-및-참여인원)
 3. [사용기술 및 개발환경](#사용기술-및-개발환경)
 4. [화면구성 및 기능](#화면구성--기능)
 
 <br><br>
 
-# Community Toy Project (진행중)
-### Node.js와 MongoDB를 이용한 Community Toy Project
+# TodoList-Server Toy Project (진행중)
+### 스프링부트를 이용하여 TodoList를 만든다.
 
 <br>
 
@@ -21,7 +21,7 @@
 
 # 제작기간 및 참여인원
 ### 
-2022-12-10 ~ 
+2023-2-22 ~ 
 
 ### 참여인원
 개인프로젝트
@@ -33,19 +33,24 @@
 
 # 사용기술 및 개발환경
 ### 
-- Visual studio code
-- Node.js
-- MongoDB
-- HTML
-- CSS
-- Javascript
-- ejs
+- Intellij
+- SpringBoot
+
+# 요구사항
+- todo 리스트 목록에 아이템 추가
+- todo 리스트 목록 중 특정 아이템 조회
+- todo 리스트 전체 목록 조회
+- todo 리스트 목록 중 특정 아이템 수정
+- todo 리스트 목록 중 특정 아이템을 삭제
+- todo 리스트 전체 목록을 삭제
 
 <br>
 
 [목차🔺](#목차)
 
 <br><br>
+
+<!-- 
 
 # 화면구성  기능
 
