@@ -1,5 +1,6 @@
 package com.example.todolistserver;
 
+import com.example.todolistserver.repository.TodoRepository;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
@@ -7,7 +8,8 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 public class TodolistServerApplication {
 
 	public static void main(String[] args) {
-		System.out.println("Hello ToDo");
+		SpringApplication.run(TodolistServerApplication.class, args);
+
 	}
 
 }
