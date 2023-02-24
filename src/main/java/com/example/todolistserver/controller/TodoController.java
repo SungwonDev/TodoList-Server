@@ -5,6 +5,7 @@ import com.example.todolistserver.model.TodoRequest;
 import com.example.todolistserver.model.TodoResponse;
 import com.example.todolistserver.service.TodoService;
 import lombok.AllArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.util.ObjectUtils;
@@ -13,6 +14,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 import java.util.stream.Collectors;
 
+@Slf4j
 @Controller
 @AllArgsConstructor
 @RestController
@@ -23,7 +25,7 @@ public class TodoController {
 
     @PostMapping
     public ResponseEntity<TodoResponse> create(@RequestBody TodoRequest request) {
-        System.out.println("CREATE");
+        log.info("CREATE");
 
         if (ObjectUtils.isEmpty(request.getTitle()))
             return ResponseEntity.badRequest().build();
