@@ -25,6 +25,7 @@ import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 import static org.springframework.mock.http.server.reactive.MockServerHttpRequest.post;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
@@ -106,5 +107,11 @@ class TodoControllerTest {
         mvc.perform(get("/"))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.length").value(expectedLength));
+    }
+
+    @Test
+    void deleteAll() throws Exception {
+        mvc.perform(delete("/"))
+                .andExpect(status().isOk());
     }
 }
