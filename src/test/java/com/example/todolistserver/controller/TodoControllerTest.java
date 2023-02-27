@@ -16,9 +16,13 @@ import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.web.server.ResponseStatusException;
 
 
+import java.util.ArrayList;
+import java.util.List;
+
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.BDDMockito.given;
+import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 import static org.springframework.mock.http.server.reactive.MockServerHttpRequest.post;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
@@ -87,6 +91,20 @@ class TodoControllerTest {
 
         mvc.perform(get("/123"))
                 .andExpect(status().isNotFound());
+    }
 
+    @Test
+    void readAll() throws Exception{
+        List<TodoEntity> mockList = new ArrayList<>();
+        int expectedLength = 10;
+        for (int i = 0; i < expectedLength; i++){
+            mockList.add(mock(TodoEntity.class));
+        }
+
+        given(todoService.searchAll()).willReturn(mockList);
+
+        mvc.perform(get("/"))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.length").value(expectedLength));
     }
 }
