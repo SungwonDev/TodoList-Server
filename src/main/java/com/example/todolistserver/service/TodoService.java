@@ -34,7 +34,6 @@ public class TodoService {
     public TodoEntity searchById(Long id) {
         return this.todoRepository.findById(id)
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
-
     }
 
     public List<TodoEntity> searchAll() {
@@ -43,15 +42,18 @@ public class TodoService {
 
     public TodoEntity updateById(Long id, TodoRequest request) {
         TodoEntity todoEntity = this.searchById(id);
-        if (request.getTitle() != null){
+        if (request.getTitle() != null) {
             todoEntity.setTitle(request.getTitle());
         }
-        if (request.getOrder() != null){
+
+        if (request.getOrder() != null) {
             todoEntity.setOrder(request.getOrder());
         }
-        if (request.getCompleted() != null){
+
+        if (request.getCompleted() != null) {
             todoEntity.setCompleted(request.getCompleted());
         }
+
         return this.todoRepository.save(todoEntity);
     }
 

@@ -19,9 +19,10 @@ import java.util.stream.Collectors;
 @AllArgsConstructor
 @RestController
 @RequestMapping("/")
+@CrossOrigin
 public class TodoController {
 
-    private final TodoService service;
+    private final TodoService todoService;
 
     @PostMapping
     public ResponseEntity<TodoResponse> create(@RequestBody TodoRequest request) {
@@ -36,44 +37,45 @@ public class TodoController {
         if (ObjectUtils.isEmpty(request.getCompleted()))
             request.setCompleted(false);
 
-        TodoEntity result = this.service.add(request);
-        return ResponseEntity.ok(new TodoResponse(result));
-    }
-
-    @GetMapping("{id}")
-    public ResponseEntity<TodoResponse> readOne(@PathVariable Long id){
-        System.out.println("READ ONE");
-        TodoEntity result = this.service.searchById(id);
+        TodoEntity result = this.todoService.add(request);
         return ResponseEntity.ok(new TodoResponse(result));
     }
 
     @GetMapping
     public ResponseEntity<List<TodoResponse>> readAll() {
-        System.out.println("READ ALL");
-        List<TodoEntity> list = this.service.searchAll();
-        List<TodoResponse> response = list.stream().map(TodoResponse::new)
+        log.info("READ ALL");
+        List<TodoEntity> result = this.todoService.searchAll();
+        List<TodoResponse> response = result.stream().map(TodoResponse::new)
                 .collect(Collectors.toList());
         return ResponseEntity.ok(response);
     }
 
+    @GetMapping("{id}")
+    public ResponseEntity<TodoResponse> readOne(@PathVariable Long id) {
+        log.info("READ");
+        TodoEntity result = this.todoService.searchById(id);
+        return ResponseEntity.ok(new TodoResponse(result));
+    }
+
     @PatchMapping("{id}")
     public ResponseEntity<TodoResponse> update(@PathVariable Long id, @RequestBody TodoRequest request) {
-        System.out.println("UPDATE");
-        TodoEntity result = this.service.updateById(id, request);
-        return ResponseEntity.ok((new TodoResponse(result)));
+        log.info("UPDATE");
+        TodoEntity result = this.todoService.updateById(id, request);
+        return ResponseEntity.ok(new TodoResponse(result));
     }
+
 
     @DeleteMapping("{id}")
     public ResponseEntity<?> deleteOne(@PathVariable Long id) {
-        System.out.println("DELETE");
-        this.service.deleteById(id);
+        log.info("DELETE");
+        this.todoService.deleteById(id);
         return ResponseEntity.ok().build();
     }
 
     @DeleteMapping
     public ResponseEntity<?> deleteAll() {
-        System.out.println("DELETE ALL");
-        this.service.deleteAll();
+        log.info("DELETE ALL");
+        this.todoService.deleteAll();
         return ResponseEntity.ok().build();
     }
 }
