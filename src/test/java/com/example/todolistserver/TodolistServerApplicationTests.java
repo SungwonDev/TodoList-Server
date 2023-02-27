@@ -10,6 +10,7 @@ import org.mockito.AdditionalAnswers;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.util.Optional;
 
@@ -65,6 +66,16 @@ class TodolistServerApplicationTests {
 		assertFalse(actual.getCompleted());
 		assertEquals(actual.getTitle(), "test");
 
+	}
+
+	@Test
+	public void searchByIdFailed() {
+		given(this.todoRepository.findById(anyLong()))
+				.willReturn(Optional.empty());
+
+		assertThrows(ResponseStatusException.class, () -> {
+			this.todoService.searchById(123L);
+		});
 	}
 
 }
