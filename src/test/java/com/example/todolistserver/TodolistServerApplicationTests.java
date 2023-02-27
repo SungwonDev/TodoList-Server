@@ -10,11 +10,16 @@ import org.mockito.AdditionalAnswers;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
+
+import java.util.Optional;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.anyLong;
+import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.when;
 
 
@@ -39,6 +44,26 @@ class TodolistServerApplicationTests {
 		//assertEquals(1L, actual.getId());
 		assertEquals("test title", actual.getTitle());
 
+	}
+
+	@Test
+	public void searchById(){
+		TodoEntity todo = new TodoEntity();
+		todo.setTitle("test");
+		todo.setId(123L);
+		todo.setOrder(0L);
+		todo.setCompleted(false);
+		Optional<TodoEntity> expected = Optional.of(todo);
+
+		given(this.todoRepository.findById(anyLong()))
+				.willReturn(expected);
+
+		TodoEntity actual = this.todoService.searchById(123L);
+
+		assertEquals(actual.getId(), 123L);
+		assertEquals(actual.getOrder(), 0L);
+		assertFalse(actual.getCompleted());
+		assertEquals(actual.getTitle(), "test");
 
 	}
 
