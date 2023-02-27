@@ -16,10 +16,11 @@ import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.when;
 import static org.springframework.mock.http.server.reactive.MockServerHttpRequest.post;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 @WebMvcTest(TodoControllerTest.class)
 class TodoControllerTest {
@@ -66,6 +67,15 @@ class TodoControllerTest {
     }
 
     @Test
-    void readOne() {
+    void readOne() throws Exception{
+        given(todoService.searchById(123L)).willReturn(expected);
+
+        mvc.perform(get("/123"))
+                .andExpect(status().isOk())
+                .andExpect(content().contentType(MediaType.APPLICATION_JSON))
+                .andExpect(jsonPath("$.id").value(expected.getId()))
+                .andExpect(jsonPath("$.title").value(expected.getTitle()))
+                .andExpect(jsonPath("$.order").value(expected.getOrder()))
+                .andExpect(jsonPath("$.completed").value(expected.getCompleted()));
     }
 }
