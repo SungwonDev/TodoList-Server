@@ -9,9 +9,11 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
+import org.springframework.web.server.ResponseStatusException;
 
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -77,5 +79,14 @@ class TodoControllerTest {
                 .andExpect(jsonPath("$.title").value(expected.getTitle()))
                 .andExpect(jsonPath("$.order").value(expected.getOrder()))
                 .andExpect(jsonPath("$.completed").value(expected.getCompleted()));
+    }
+
+    @Test
+    void readOneException() throws Exception{
+        given(todoService.searchById(123L)).willThrow(new ResponseStatusException(HttpStatus.NOT_FOUND));
+
+        mvc.perform(get("/123"))
+                .andExpect(status().isNotFound());
+
     }
 }
