@@ -33,6 +33,7 @@
 
 # 사용기술 및 개발환경
 ### 
+- Java
 - Intellij
 - SpringBoot
 - Lombok
