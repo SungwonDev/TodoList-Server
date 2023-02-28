@@ -3,14 +3,14 @@
 
 # ✨목차
 
-1. [소개](#TodoList-Server)
+1. [소개](#TodoList-Server-Toy-Project)
 2. [제작기간 및 참여인원](#제작기간-및-참여인원)
 3. [사용기술 및 개발환경](#사용기술-및-개발환경)
-4. [화면구성 및 기능](#화면구성--기능)
+4. [API 테스트](#API-테스트)
 
 <br><br>
 
-# TodoList-Server Toy Project (진행중)
+# TodoList-Server Toy Project
 ### 스프링부트를 이용하여 TodoList를 만든다.
 
 <br>
@@ -35,6 +35,7 @@
 ### 
 - Intellij
 - SpringBoot
+- Lombok
 
 # 요구사항
 - todo 리스트 목록에 아이템 추가
